@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html >
+<head>
+    <title>Area Calculator</title>
+    <style>
+     
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #eaeaea;
+            height: 100%;
+        }
+
+      
+        .container {
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 40px;
+            background-color: #fff;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+
+        .selector {
+            margin-bottom: 20px;
+        }
+
+        select {
+            padding: 10px;
+            font-size: 1.1em;
+            border-radius: 5px;
+            width: 200px;
+            cursor: pointer;
+            border: 1px solid #ccc;
+        }
+
+        .inputs {
+            display: none;
+            margin-top: 20px;
+        }
+
+        label {
+            font-size: 1.1em;
+            font-weight: bold;
+            margin-top: 10px;
+            display: block;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            font-size: 1.1em;
+            border-radius: 5px;
+            margin-top: 10px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 30px;
+            font-size: 1.2em;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 20px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .result {
+            margin-top: 30px;
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>Area Calculator</h1>
+
+        <div class="selector">
+            <label for="shape">Choose Shape:</label>
+            <select id="shape" onchange="toggleFields()">
+                <option value="rectangle">Rectangle</option>
+                <option value="circle">Circle</option>
+            </select>
+        </div>
+
+       
+        <div id="rectangleInputs" class="inputs">
+            <label for="length">Length:</label>
+            <input type="number" id="length" placeholder="Enter length" />
+
+            <label for="width">Width:</label>
+            <input type="number" id="width" placeholder="Enter width" />
+        </div>
+
+      
+        <div id="circleInputs" class="inputs">
+            <label for="radius">Radius:</label>
+            <input type="number" id="radius" placeholder="Enter radius" />
+        </div>
+
+       
+        <button onclick="calculateArea()">Calculate</button>
+
+       
+        <div id="result" class="result"></div>
+    </div>
+
+    <script>
+     
+        function toggleFields() {
+            const shape = document.getElementById("shape").value;
+            const rectangleInputs = document.getElementById("rectangleInputs");
+            const circleInputs = document.getElementById("circleInputs");
+
+           
+            if (shape === "rectangle") {
+                rectangleInputs.style.display = "block";
+                circleInputs.style.display = "none";
+            } else {
+                rectangleInputs.style.display = "none";
+                circleInputs.style.display = "block";
+            }
+        }
+
+      
+        function calculateArea() {
+            const shape = document.getElementById("shape").value;
+            let area = 0;
+
+           
+            if (shape === "rectangle") {
+                const length = parseFloat(document.getElementById("length").value);
+                const width = parseFloat(document.getElementById("width").value);
+
+                if (isNaN(length) || isNaN(width) || length <= 0 || width <= 0) {
+                    alert("Please enter valid dimensions for the rectangle.");
+                    return;
+                }
+                area = length * width;
+            }
+           
+            else if (shape === "circle") {
+                const radius = parseFloat(document.getElementById("radius").value);
+
+                if (isNaN(radius) || radius <= 0) {
+                    alert("Please enter a valid radius.");
+                    return;
+                }
+                area = Math.PI * Math.pow(radius, 2);
+            }
+
+            
+            document.getElementById("result").innerHTML = `Area: ${area.toFixed(2)} square units`;
+        }
+
+        toggleFields();
+
+    </script>
+
+</body>
+
+</html>
